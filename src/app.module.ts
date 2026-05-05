@@ -1,13 +1,11 @@
 import { Module } from "@nestjs/common";
-import { MongooseModule } from "@nestjs/mongoose";
 import { AppController } from "./app.controller";
+import { PrismaService } from "./prisma.service";
 
 @Module({
-  imports: [
-    MongooseModule.forRoot(
-      process.env.MONGO_URI ?? "mongodb://127.0.0.1:27017/mydb",
-    ),
-  ],
+  imports: [],
   controllers: [AppController],
+  providers: [PrismaService],
+  exports: [PrismaService],
 })
 export class AppModule {}

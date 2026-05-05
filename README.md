@@ -1,6 +1,6 @@
 # workbe-backend
 
-API en [NestJS](https://nestjs.com/) con [MongoDB](https://www.mongodb.com/) (Mongoose) y arranque con Docker Compose.
+API en [NestJS](https://nestjs.com/) con [PostgreSQL](https://www.postgresql.org/) y [Prisma](https://www.prisma.io/). Arranque con Docker Compose.
 
 ## Requisitos
 
@@ -11,34 +11,55 @@ API en [NestJS](https://nestjs.com/) con [MongoDB](https://www.mongodb.com/) (Mo
 
 ```bash
 cp .env.example .env
-# Edita .env con tus valores
 npm install
 ```
 
 ## Desarrollo
 
-```bash
-# API + Mongo (Compose)
-docker compose up --build
+### Con Docker (API + PostgreSQL)
 
-# Solo API en local (necesitas Mongo accesible según MONGO_URI)
+```bash
+docker compose up --build
+```
+
+La API queda expuesta en `http://localhost:${PORT}` y el endpoint `GET /` debería responder con `Hello World!`.
+
+### Solo API (local)
+
+```bash
 npm run start:dev
 ```
 
-Por defecto la app escucha en el puerto definido en `PORT` (3000). Comprueba `GET /`.
+Asegúrate de que `DATABASE_URL` apunte a una instancia de PostgreSQL accesible desde tu máquina.
+
+## Prisma
+
+### Generar Prisma Client
+
+```bash
+npm run prisma:generate
+```
+
+### Migraciones (cuando agregues modelos)
+
+```bash
+npm run prisma:migrate:dev
+```
+
+Nota: como ahora mismo `prisma/schema.prisma` no incluye modelos, las migraciones todavía no tienen tablas que crear hasta que agregues tus entidades.
 
 ## Scripts útiles
 
-| Comando | Descripción |
-|--------|-------------|
-| `npm run start:dev` | Nest en modo watch |
-| `npm run build` | Compila a `dist/` |
-| `npm run lint` | ESLint |
-| `npm test` | Tests unitarios |
-| `npm run test:e2e` | Smoke HTTP (sin Mongo) |
+- `npm run build` — compila a `dist/`
+- `npm run lint` — ESLint
+- `npm test` — tests unitarios
+- `npm run test:e2e` — smoke HTTP
+- `npm run prisma:generate` — genera Prisma Client
 
 ## Estructura
 
 - `src/` — código de la aplicación
-- `docker-compose.yml` — servicios `api` y `mongodb`
+- `prisma/` — esquema Prisma
+- `docker-compose.yml` — servicios `api` y `postgres`
 - `Dockerfile` — imagen de producción de la API
+
