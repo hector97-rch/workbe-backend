@@ -5,32 +5,21 @@ API en [NestJS](https://nestjs.com/) con [PostgreSQL](https://www.postgresql.org
 ## Requisitos
 
 - Node 20+
-- Docker (opcional, recomendado)
+- Docker
 
 ## Configuración
 
-```bash
-cp .env.example .env
-npm install
-```
+....
 
 ## Desarrollo
 
 ### Con Docker (API + PostgreSQL)
-
+Para arrancar el proyecto se requiere descargar docker y en la terminal dentro de la carpeta del proyecto ejecutar el siguiente comando
 ```bash
 docker compose up --build
 ```
 
-La API queda expuesta en `http://localhost:${PORT}` y el endpoint `GET /` debería responder con `Hello World!`.
-
-### Solo API (local)
-
-```bash
-npm run start:dev
-```
-
-Asegúrate de que `DATABASE_URL` apunte a una instancia de PostgreSQL accesible desde tu máquina.
+La API queda expuesta en `http://localhost:3000` y el endpoint `GET /` debería responder con `Hello World!`.
 
 ## Prisma
 
@@ -46,7 +35,6 @@ npm run prisma:generate
 npm run prisma:migrate:dev
 ```
 
-Nota: como ahora mismo `prisma/schema.prisma` no incluye modelos, las migraciones todavía no tienen tablas que crear hasta que agregues tus entidades.
 
 ## Scripts útiles
 
